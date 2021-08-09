@@ -1,0 +1,14 @@
+.home-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    > .user-interface {
+        margin-top: 40px;
+
+        > .title {
+            font-family: roboto-bold;
+        }
+    }
+}

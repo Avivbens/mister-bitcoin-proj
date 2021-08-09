@@ -1,0 +1,11 @@
+.app-header {
+    > nav {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+
+        a > img {
+            width: 40px;
+        }
+    }
+}
