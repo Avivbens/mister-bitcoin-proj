@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import { bitcoinService } from '../services/bitcoin.service'
-import contactService from '../services/contact.service'
+import { contactService } from '../services/contact.service'
 
 export class HomePage extends Component {
 

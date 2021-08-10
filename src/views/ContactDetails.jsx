@@ -1,20 +1,32 @@
 import { Component } from 'react'
-import contactService from '../services/contact.service'
+import { connect } from 'react-redux'
+import { getContactById, removeContact } from '../store/actions/contactActions'
 
-export class ContactDetails extends Component {
-    state = {
-        contact: null
+// import contactService from '../services/contact.service'
+
+export class _ContactDetails extends Component {
+
+    componentDidMount() {
+        this.loadContact()
     }
 
-    async componentDidMount() {
+    componentDidUpdate(prevProps) {
+        if (prevProps.match.params.id !== this.props.match.params.id) {
+            this.loadContact()
+        }
+    }
+
+    loadContact = async () => {
         const { id } = this.props.match.params
-        const contact = await contactService.getContactById(id)
-        this.setState({ contact })
+        this.props.getContactById(id)
+        // const contact = await contactService.getContactById(id)
+        // this.setState({ contact })
     }
 
 
     render() {
-        const { contact } = this.state
+        // const { contact } = this.state
+        const { contact } = this.props
         if (!contact) return (<section className="contact-details"></section>)
         return (
             <section className="contact-details">
@@ -35,3 +47,17 @@ export class ContactDetails extends Component {
         )
     }
 }
+
+
+
+const mapStateToProps = state => {
+    return {
+        contact: state.contactModule.currContact,
+        loggedInUser: state.userModule.loggedInUser
+    }
+}
+const mapDispatchToProps = {
+    getContactById,
+    removeContact,
+}
+export const ContactDetails = connect(mapStateToProps, mapDispatchToProps)(_ContactDetails)

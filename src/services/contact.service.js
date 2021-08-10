@@ -1,4 +1,4 @@
-export default {
+export const contactService = {
     getContacts,
     getContactById,
     deleteContact,

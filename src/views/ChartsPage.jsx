@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { Sparklines, SparklinesLine, SparklinesBars } from 'react-sparklines'
+import { Sparklines, SparklinesLine } from 'react-sparklines'
 import { bitcoinService } from '../services/bitcoin.service'
 
 

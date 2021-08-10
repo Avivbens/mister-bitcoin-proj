@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import contactService from '../services/contact.service'
+import { contactService } from '../services/contact.service'
 
 export class ContactEdit extends Component {
 
