@@ -1,12 +1,15 @@
 import { Component } from 'react'
 import { connect } from 'react-redux'
-import { getContactById, removeContact } from '../store/actions/contactActions'
+import { MovesList } from '../cmps/MovesList'
+import { TransferFund } from '../cmps/TransferFund'
+import { getContactById, removeContact, loadContacts } from '../store/actions/contactActions'
 
 // import contactService from '../services/contact.service'
 
 export class _ContactDetails extends Component {
 
-    componentDidMount() {
+    componentDidMount = async () => {
+        await this.props.loadContacts()
         this.loadContact()
     }
 
@@ -14,18 +17,17 @@ export class _ContactDetails extends Component {
         if (prevProps.match.params.id !== this.props.match.params.id) {
             this.loadContact()
         }
+        // else if (prevProps.contact !== this.props.contact) {
+        //     this.loadContact()
+        // }
     }
 
     loadContact = async () => {
         const { id } = this.props.match.params
         this.props.getContactById(id)
-        // const contact = await contactService.getContactById(id)
-        // this.setState({ contact })
     }
 
-
     render() {
-        // const { contact } = this.state
         const { contact } = this.props
         if (!contact) return (<section className="contact-details"></section>)
         return (
@@ -40,9 +42,13 @@ export class _ContactDetails extends Component {
                 </div>
 
                 <img src={require('../assets/imgs/user-icon.png').default} alt="person" />
-                <p className="name">Name: {contact.name}</p>
-                <p className="phone">Phone: {contact.phone}</p>
-                <p className="email">Email: {contact.email}</p>
+                <p>Name: {contact.name}</p>
+                <p>Phone: {contact.phone}</p>
+                <p>Email: {contact.email}</p>
+                <p>Coins: {contact.coins || 0}</p>
+
+                <TransferFund user={contact} />
+                <MovesList user={contact} />
             </section>
         )
     }
@@ -52,6 +58,7 @@ export class _ContactDetails extends Component {
 
 const mapStateToProps = state => {
     return {
+        contacts: state.contactModule.contacts,
         contact: state.contactModule.currContact,
         loggedInUser: state.userModule.loggedInUser
     }
@@ -59,5 +66,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     getContactById,
     removeContact,
+    loadContacts,
 }
 export const ContactDetails = connect(mapStateToProps, mapDispatchToProps)(_ContactDetails)

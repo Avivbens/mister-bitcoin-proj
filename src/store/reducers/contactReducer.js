@@ -32,9 +32,11 @@ export function contactReducer(state = INITIAL_STATE, action) {
             }
         case 'UPDATE_CONTACT':
             const currContact = state.currContact._id === action.contact._id ? action.contact : state.currContact
+            const contacts = state.contacts.map(c => c._id === action.contact._id ? action.contact : c)
+            localStorage.contacts = JSON.stringify(contacts)
             return {
                 ...state,
-                contacts: state.contacts && state.contacts.map(contact => contact._id === action.contact._id ? action.contact : contact),
+                contacts,
                 currContact
             }
         default:

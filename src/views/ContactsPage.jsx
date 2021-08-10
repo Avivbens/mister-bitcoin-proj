@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import { connect } from 'react-redux'
+import { ContactsList } from '../cmps/ContactsList'
 import { getContactById, loadContacts, setFilterBy } from '../store/actions/contactActions'
 
 
@@ -42,21 +43,7 @@ export class _ContactsPage extends Component {
                     </button>
                 </div>
 
-                <ul className="contact-list">
-                    {contacts.map(user => {
-                        return (
-                            <li key={user._id}
-                                className="contact-preview"
-                                onClick={() => {
-                                    this.props.history.push('/contact/details/' + user._id)
-                                }}
-                            >
-                                <img src={require('../assets/imgs/user-icon.png').default} alt="person" />
-                                <p>{user.name}</p>
-                            </li>
-                        )
-                    })}
-                </ul>
+                {contacts && <ContactsList contacts={contacts} />}
             </section>
         )
     }

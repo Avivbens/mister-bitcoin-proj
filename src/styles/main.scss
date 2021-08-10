@@ -3,12 +3,19 @@
 
 // CMPS
 @import "cmps/app-header";
+@import "cmps/contact-list";
+@import "cmps/contact-preview";
+@import "cmps/transfer-fund";
+@import "cmps/moves-list";
 
 // VIEWS
 @import "views/home-page";
 @import "views/contact-page";
 @import "views/contact-details";
 @import "views/contact-edit";
+@import "views/signup-page";
 
-// CMPS
-// @import "cmps/";
+body {
+    background-image: url("../assets/imgs/bgc.jpg");
+    color: white;
+}

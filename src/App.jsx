@@ -9,6 +9,7 @@ import { ChartsPage } from './views/ChartsPage.jsx'
 import { ContactEdit } from './views/ContactEdit.jsx'
 import { AppHeader } from './cmps/AppHeader.jsx'
 import { connect } from 'react-redux'
+import { SignupPage } from './views/SignupPage.jsx'
 
 export function _App({ loggedInUser }) {
     return (
@@ -20,6 +21,7 @@ export function _App({ loggedInUser }) {
                     <Route path="/contact/details/:id?" component={ContactDetails} />
                     <Route path="/contact" component={ContactsPage} />
                     <Route path="/charts" component={ChartsPage} />
+                    <Route path="/signup" component={SignupPage} />
                     <Route path="/" component={HomePage} />
                 </Switch>
             </main>

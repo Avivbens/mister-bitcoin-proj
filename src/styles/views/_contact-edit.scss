@@ -3,7 +3,7 @@
     align-items: center;
     flex-direction: column;
 
-    margin-top: 40px;
+    margin-top: 20px;
 
     > .btns {
         display: flex;
@@ -11,7 +11,7 @@
         width: 40%;
         gap: 10px;
 
-        margin-bottom: 40px;
+        margin-bottom: 20px;
 
         > button {
             display: flex;
@@ -36,13 +36,14 @@
     }
 
     > img {
-        width: 200px;
+        width: 100px;
+        margin-bottom: 20px;
     }
 
     > form.edit-contact {
         display: flex;
         flex-direction: column;
-        gap: 30px;
+        gap: 20px;
 
         label {
             display: flex;

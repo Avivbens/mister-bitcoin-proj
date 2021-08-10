@@ -1,0 +1,11 @@
+.contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 80vw;
+    max-width: 600px;
+    color: #141414;
+
+    padding: unset;
+    list-style: none;
+}

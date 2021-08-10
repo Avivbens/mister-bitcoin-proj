@@ -2,13 +2,19 @@ import axios from 'axios'
 
 export const bitcoinService = {
     getRate,
+    getValueCost,
 
     getMarketPrice,
     getConfirmedTransactions,
 }
 getRate()
 
-async function getRate(coins) {
+async function getRate() {
+    const res = await axios.get(`https://blockchain.info/tobtc?currency=USD&value=1`)
+    return res.data
+}
+
+async function getValueCost(coins) {
     const res = await axios.get(`https://blockchain.info/tobtc?currency=USD&value=1`)
     return coins / res.data
 }

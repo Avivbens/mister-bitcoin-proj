@@ -4,11 +4,28 @@
     align-items: center;
     flex-direction: column;
 
-    > .user-interface {
-        margin-top: 40px;
+    margin-top: 40px;
+
+    .layout {
+        width: 80vw;
 
         > .title {
             font-family: roboto-bold;
+            text-transform: capitalize;
+            padding: 5px 0;
+            width: 100%;
+            border-bottom: 1px solid gray;
+        }
+
+        .bitcoin {
+            > span {
+                color: #88c317;
+            }
+        }
+        .dollar {
+            > span {
+                color: #5a6974;
+            }
         }
     }
 }

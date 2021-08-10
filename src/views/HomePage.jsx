@@ -1,38 +1,58 @@
 import { Component } from 'react'
+import { connect } from 'react-redux'
+import { MovesList } from '../cmps/MovesList'
 import { bitcoinService } from '../services/bitcoin.service'
-import { contactService } from '../services/contact.service'
 
-export class HomePage extends Component {
+class _HomePage extends Component {
 
     state = {
-        user: {},
-        currBitValue: 0.01570048
+        currBitValue: null
     }
 
     async componentDidMount() {
-        const user = await contactService.getUser()
-        const currBitValue = await bitcoinService.getRate(user.coins)
+        const { loggedinUser } = this.props
+        if (!loggedinUser) return
+
+        const currBitValue = await bitcoinService.getValueCost(loggedinUser.coins)
         this.setState({
-            user,
             currBitValue: currBitValue.toFixed(4)
         })
     }
 
     render() {
-        const { user, currBitValue } = this.state
+        const { currBitValue } = this.state
+        const { loggedinUser } = this.props
 
+        const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        })
+
+        if (!loggedinUser) return (
+            <section className="home-page">
+                <h3>Please login!</h3>
+            </section>)
         return (
             <section className="home-page">
-                <div className="user-interface">
-                    <h3 className="title">Hello {user.name} !</h3>
-                    <p>💰 Coins: {user.coins}</p>
-                    <p>💵 BTC: {currBitValue}</p>
-                    {/* <div className="btns">
-                        <button className="btn" onClick={() => this.props.history.push('/contact')}>Contacts</button>
-                        <button className="btn" onClick={() => this.props.history.push('/charts')}>Charts</button>
-                    </div> */}
+                <div className="layout">
+                    <h3 className="title">Hi, {loggedinUser.name} !</h3>
+                    <p className="bitcoin">BIT: <span>B {loggedinUser.coins.toLocaleString('en-GB')}</span></p>
+                    <p className="dollar">USD:  <span>{formatter.format(currBitValue)}</span></p>
+
+                    <MovesList user={loggedinUser} fullView={true} />
                 </div>
             </section>
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        loggedinUser: state.userModule.loggedinUser
+    }
+}
+
+// Connects the store with the component, injects it to the props
+export const HomePage = connect(mapStateToProps)(_HomePage)
+
+
