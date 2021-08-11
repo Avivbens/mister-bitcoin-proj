@@ -4,27 +4,59 @@
     align-items: center;
     flex-direction: column;
 
-    margin-top: 40px;
+    background-color: #07071ab7;
+    margin-top: 20px;
 
     .layout {
         width: 80vw;
 
         > .title {
-            font-family: roboto-bold;
+            font-family: roboto;
             text-transform: capitalize;
             padding: 5px 0;
             width: 100%;
+            font-weight: 400;
             border-bottom: 1px solid gray;
         }
 
-        .bitcoin {
-            > span {
-                color: #88c317;
+        > .data {
+            display: flex;
+            justify-content: space-between;
+
+            > .left {
+                > :first-child {
+                    color: #5a6974;
+                    text-transform: uppercase;
+                    font-size: 12px;
+                    margin-bottom: 5px;
+                }
+                .bitcoin {
+                    margin: 0;
+                    > span {
+                        color: #88c317;
+                    }
+                }
+                .dollar {
+                    margin: 0;
+                    > span {
+                        color: #5a6974;
+                    }
+                }
             }
-        }
-        .dollar {
-            > span {
-                color: #5a6974;
+
+            > .right {
+                display: flex;
+                align-items: flex-end;
+                flex-direction: column;
+
+                > :first-child {
+                    color: #5a6974;
+                    text-transform: uppercase;
+                    font-size: 12px;
+                }
+                > .currency {
+                    font-size: 25px;
+                }
             }
         }
     }

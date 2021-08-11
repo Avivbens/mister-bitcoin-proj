@@ -33,7 +33,11 @@ export class _MovesList extends Component {
         let className = 'moves-list '
         className += fullView ? 'full' : ''
 
-        if (!moves?.length) return <></>
+        if (!moves?.length) return (
+            <section className="moves-list">
+                <h3>No Moves Yet!</h3>
+            </section>
+        )
 
         return (
             <section className={className}>

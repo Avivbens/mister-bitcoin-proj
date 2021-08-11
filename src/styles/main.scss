@@ -16,6 +16,13 @@
 @import "views/signup-page";
 
 body {
+    height: calc(100vh - 20px);
+    margin: 0;
+
     background-image: url("../assets/imgs/bgc.jpg");
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
     color: white;
 }

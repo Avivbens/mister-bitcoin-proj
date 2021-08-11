@@ -9,13 +9,28 @@
     height: 50px;
     padding: 5px;
 
-    > img {
-        height: 60%;
-        margin-left: 10px;
-    }
+    transition: all 0.3s;
 
     &:hover {
-        background-color: #e6e6e6;
+        background-color: #cecece;
+        box-shadow: 0 0 14px 2px #7b8dda;
         cursor: pointer;
+    }
+
+    > img {
+        height: 80%;
+        margin-left: 10px;
+        opacity: 0.5;
+    }
+
+    > .info {
+        > .name {
+            font-size: 14px;
+        }
+
+        > .phone {
+            font-size: 12px;
+            color: #5a6974;
+        }
     }
 }

@@ -6,6 +6,7 @@ import { bitcoinService } from '../services/bitcoin.service'
 export function HomePage() {
 
     const [currBitValue, setCurrBitValue] = useState(0)
+    const [currBitRate, setCurrBitRate] = useState(1)
     const { loggedinUser } = useSelector(state => state.userModule)
 
 
@@ -13,6 +14,8 @@ export function HomePage() {
         async function a() {
             if (!loggedinUser) return setCurrBitValue(0)
             const bitValue = await bitcoinService.getValueCost(loggedinUser.coins)
+            const bitRate = await bitcoinService.getRate()
+            setCurrBitRate(bitRate)
             setCurrBitValue(bitValue.toFixed(3))
         }
         a()
@@ -33,8 +36,19 @@ export function HomePage() {
         <section className="home-page">
             <div className="layout">
                 <h3 className="title">Hi, {loggedinUser.name} !</h3>
-                <p className="bitcoin">BIT: <span>B {loggedinUser.coins.toLocaleString('en-GB')}</span></p>
-                <p className="dollar">USD:  <span>{formatter.format(currBitValue)}</span></p>
+                <div className="data">
+                    <span className="left">
+                        <span>Current Balance</span>
+                        <p className="bitcoin">BIT: <span>B {loggedinUser.coins.toLocaleString('en-GB')}</span></p>
+                        <p className="dollar">USD:  <span>{formatter.format(currBitValue)}</span></p>
+                    </span>
+                    <span className="right">
+                        <span>Current BTC USD</span>
+                        <span className="currency">
+                            {formatter.format(1 / currBitRate)}
+                        </span>
+                    </span>
+                </div>
 
                 <MovesList user={loggedinUser} fullView={true} />
             </div>
