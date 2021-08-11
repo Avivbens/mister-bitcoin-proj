@@ -12,7 +12,20 @@
 
         > label {
             display: flex;
+            align-items: center;
             gap: 10px;
+
+            > input {
+                padding: 5px;
+                border-radius: 5px;
+                border: none;
+                outline: none;
+                transition: all 0.2s;
+
+                &:focus {
+                    box-shadow: 0 2px 0 #7b8dda;
+                }
+            }
         }
 
         > button {

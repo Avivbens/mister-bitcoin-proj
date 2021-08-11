@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { bitcoinService } from '../services/bitcoin.service'
 import { loadContacts } from '../store/actions/contactActions'
 
-
 export class _MovesList extends Component {
 
     state = {
@@ -30,7 +29,7 @@ export class _MovesList extends Component {
     render() {
         const { user, fullView } = this.props
         const { rate } = this.state
-        const moves = fullView ? user.moves : user.moves.splice(0, 3)
+        const moves = fullView ? user.moves.reverse() : user.moves.reverse().splice(0, 3)
         let className = 'moves-list '
         className += fullView ? 'full' : ''
 

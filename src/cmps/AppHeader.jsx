@@ -1,61 +1,47 @@
-import { Component } from 'react'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-
 import { logout } from '../store/actions/userActions'
 
+export function AppHeader() {
 
-export class _AppHeader extends Component {
+    const { loggedinUser } = useSelector(state => state.userModule)
+    const dispatch = useDispatch()
 
-    logout = () => {
-        this.props.logout()
+
+    const onLogout = () => {
+        dispatch(logout())
     }
 
-    render() {
-        const { loggedinUser } = this.props
-        return (
-            <section className="app-header">
-                <nav>
-                    <NavLink to="/">
-                        <img src={require('../assets/imgs/icons/home.png').default} alt="person" />
+    return (
+        <section className="app-header">
+            <nav>
+                <NavLink to="/">
+                    <img src={require('../assets/imgs/icons/home.png').default} alt="person" />
+                </NavLink>
+                <NavLink to="/contact">
+                    <img src={require('../assets/imgs/icons/users.png').default} alt="person" />
+                </NavLink>
+                <NavLink to="/charts">
+                    <img src={require('../assets/imgs/icons/increase.png').default} alt="person" />
+                </NavLink>
+                {!loggedinUser ? <>
+                    <NavLink to="/signup">
+                        Signup
+                        {/* <img src={require('../assets/imgs/icons/increase.png').default} alt="person" /> */}
                     </NavLink>
-                    <NavLink to="/contact">
-                        <img src={require('../assets/imgs/icons/contact.png').default} alt="person" />
+                    <NavLink to="/login">
+                        Login
+                        {/* <img src={require('../assets/imgs/icons/increase.png').default} alt="person" /> */}
                     </NavLink>
-                    <NavLink to="/charts">
-                        <img src={require('../assets/imgs/icons/increase.png').default} alt="person" />
-                    </NavLink>
-                    {!loggedinUser ? <>
-                        <NavLink to="/signup">
-                            Signup
-                            {/* <img src={require('../assets/imgs/icons/increase.png').default} alt="person" /> */}
-                        </NavLink>
-                        <NavLink to="/login">
-                            Login
-                            {/* <img src={require('../assets/imgs/icons/increase.png').default} alt="person" /> */}
-                        </NavLink>
-                    </> :
-                        <button className="btn" onClick={this.logout}>
-                            Logout
-                        </button>
-                    }
-                </nav>
-            </section>
-        )
-    }
+                </> :
+                    <button className="btn" onClick={onLogout}>
+                        Logout
+                    </button>
+                }
+            </nav>
+        </section>
+    )
 }
-
-const mapStateToProps = state => {
-    return {
-        loggedinUser: state.userModule.loggedinUser
-    }
-}
-const mapDispatchToProps = {
-    logout,
-}
-
-// Connects the store with the component, injects it to the props
-export const AppHeader = connect(mapStateToProps, mapDispatchToProps)(_AppHeader)
 
 
 

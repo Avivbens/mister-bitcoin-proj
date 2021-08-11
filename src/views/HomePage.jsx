@@ -1,58 +1,44 @@
-import { Component } from 'react'
-import { connect } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { MovesList } from '../cmps/MovesList'
 import { bitcoinService } from '../services/bitcoin.service'
 
-class _HomePage extends Component {
+export function HomePage() {
 
-    state = {
-        currBitValue: null
-    }
+    const [currBitValue, setCurrBitValue] = useState(0)
+    const { loggedinUser } = useSelector(state => state.userModule)
 
-    async componentDidMount() {
-        const { loggedinUser } = this.props
-        if (!loggedinUser) return
 
-        const currBitValue = await bitcoinService.getValueCost(loggedinUser.coins)
-        this.setState({
-            currBitValue: currBitValue.toFixed(4)
-        })
-    }
+    useEffect(() => {
+        async function a() {
+            if (!loggedinUser) return setCurrBitValue(0)
+            const bitValue = await bitcoinService.getValueCost(loggedinUser.coins)
+            setCurrBitValue(bitValue.toFixed(3))
+        }
+        a()
+    }, [loggedinUser])
 
-    render() {
-        const { currBitValue } = this.state
-        const { loggedinUser } = this.props
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+    })
 
-        const formatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-        })
 
-        if (!loggedinUser) return (
-            <section className="home-page">
-                <h3>Please login!</h3>
-            </section>)
-        return (
-            <section className="home-page">
-                <div className="layout">
-                    <h3 className="title">Hi, {loggedinUser.name} !</h3>
-                    <p className="bitcoin">BIT: <span>B {loggedinUser.coins.toLocaleString('en-GB')}</span></p>
-                    <p className="dollar">USD:  <span>{formatter.format(currBitValue)}</span></p>
 
-                    <MovesList user={loggedinUser} fullView={true} />
-                </div>
-            </section>
-        )
-    }
+    if (!loggedinUser) return (
+        <section className="home-page">
+            <h3>Please login!</h3>
+        </section>)
+    return (
+        <section className="home-page">
+            <div className="layout">
+                <h3 className="title">Hi, {loggedinUser.name} !</h3>
+                <p className="bitcoin">BIT: <span>B {loggedinUser.coins.toLocaleString('en-GB')}</span></p>
+                <p className="dollar">USD:  <span>{formatter.format(currBitValue)}</span></p>
+
+                <MovesList user={loggedinUser} fullView={true} />
+            </div>
+        </section>
+    )
 }
-
-const mapStateToProps = state => {
-    return {
-        loggedinUser: state.userModule.loggedinUser
-    }
-}
-
-// Connects the store with the component, injects it to the props
-export const HomePage = connect(mapStateToProps)(_HomePage)
-
 

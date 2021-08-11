@@ -4,8 +4,18 @@
         justify-content: center;
         gap: 40px;
 
-        a > img {
-            width: 40px;
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 18px;
+            color: white;
+            text-decoration: none;
+
+            > img {
+                width: 40px;
+            }
         }
     }
 }

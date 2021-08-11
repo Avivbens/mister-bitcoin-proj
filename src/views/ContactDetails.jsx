@@ -17,9 +17,6 @@ export class _ContactDetails extends Component {
         if (prevProps.match.params.id !== this.props.match.params.id) {
             this.loadContact()
         }
-        // else if (prevProps.contact !== this.props.contact) {
-        //     this.loadContact()
-        // }
     }
 
     loadContact = async () => {
