@@ -1,7 +1,8 @@
-import React from 'react'
-import { withRouter } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
-function _ContactPreview({ user, history }) {
+export const ContactPreview = ({ user }) => {
+    const history = useHistory()
+
     return (
         <li
             className="contact-preview"
@@ -19,4 +20,3 @@ function _ContactPreview({ user, history }) {
     )
 }
 
-export const ContactPreview = withRouter(_ContactPreview)

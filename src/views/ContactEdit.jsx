@@ -1,83 +1,85 @@
-import { Component } from 'react'
+import { useEffect, useState } from 'react'
 import { contactService } from '../services/contact.service'
 
-export class ContactEdit extends Component {
+export const ContactEdit = ({ match, history }) => {
 
-    state = {
-        contact: null
-    }
+    const [contact, setContact] = useState(null)
 
-    async componentDidMount() {
-        const { id } = this.props.match.params
-        const contact = id ? await contactService.getContactById(id) : contactService.getEmptyContact()
-        this.setState({ contact })
-    }
+    useEffect(() => {
+        (async () => {
+            const { id } = match.params
+            const contact = id ? await contactService.getContactById(id) : contactService.getEmptyContact()
+            setContact(contact)
+        })()
+    }, [match.params])
 
-    saveContact = async (ev) => {
+    const saveContact = async (ev) => {
         ev.preventDefault()
 
-        if (!this.state.contact) return
-        await contactService.saveContact(this.state.contact)
-        this.props.history.push('/contact')
+        if (!contact) return
+        await contactService.saveContact(contact)
+        history.push('/contact')
     }
 
-    removeContact = async () => {
-        if (!this.state.contact?._id) return
+    const removeContact = async () => {
+        if (!contact?._id) return
 
         try {
-            await contactService.deleteContact(this.state.contact._id)
-            this.props.history.push('/contact')
+            await contactService.deleteContact(contact._id)
+            history.push('/contact')
 
         } catch (error) {
             console.log('Failed to delete contact!')
         }
     }
 
-    inputHandler = ({ target }) => {
+    const inputHandler = ({ target }) => {
         const field = target.name
         const value = target.type === 'number' ? +target.value : target.value
 
-        const contact = JSON.parse(JSON.stringify(this.state.contact))
+        const contact = JSON.parse(JSON.stringify(contact))
         contact[field] = value
 
-        this.setState({ contact })
+        setContact(contact)
     }
 
 
-    render() {
-        const { contact } = this.state
-        if (!contact) return (<section className="contact-edit"></section>)
-        return (
-            <section className="contact-edit">
-                <div className="btns">
-                    <button onClick={() => this.props.history.push('/contact')}>
-                        <img src={require('../assets/imgs/icons/back.png').default} alt="person" />
-                    </button>
-                    <button onClick={this.removeContact} >
-                        <img src={require('../assets/imgs/icons/delete.png').default} alt="person" />
-                    </button>
-                </div>
+    if (!contact) return (<section className="contact-edit"></section>)
+    return (
+        <section className="contact-edit">
+            <div className="btns">
+                <button onClick={() => history.push('/contact')}>
+                    <img src={require('../assets/imgs/icons/back.png').default} alt="person" />
+                </button>
+                <button onClick={removeContact} >
+                    <img src={require('../assets/imgs/icons/delete.png').default} alt="person" />
+                </button>
+            </div>
 
-                <img src={require('../assets/imgs/user-icon.png').default} alt="person" />
-                <form onSubmit={this.saveContact} className="edit-contact">
-                    <label>
-                        <span>Name</span>
-                        <input className="name" name="name" onChange={this.inputHandler} value={contact.name} />
-                    </label>
-                    <label>
-                        <span>Phone</span>
-                        <input className="phone" name="phone" onChange={this.inputHandler} value={contact.phone} />
-                    </label>
-                    <label>
-                        <span>Email</span>
-                        <input className="email" name="email" onChange={this.inputHandler} value={contact.email} />
-                    </label>
+            <img src={require('../assets/imgs/user-icon.png').default} alt="person" />
+            <form onSubmit={saveContact} className="edit-contact">
+                <label>
+                    <span>Name</span>
+                    <input className="name" name="name" onChange={inputHandler}
+                        value={contact.name}
+                        autoComplete="off"
+                    />
+                </label>
+                <label>
+                    <span>Phone</span>
+                    <input className="phone" name="phone"
+                        onChange={inputHandler} value={contact.phone} />
+                </label>
+                <label>
+                    <span>Email</span>
+                    <input className="email" name="email"
+                        onChange={inputHandler} value={contact.email} />
+                </label>
 
 
-                    <button className="btn">Save</button>
-                </form >
+                <button className="btn">Save</button>
+            </form >
 
-            </section >
-        )
-    }
+        </section >
+    )
 }

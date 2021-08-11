@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { login } from '../store/actions/userActions'
 
 
-export function SignupPage() {
+export const SignupPage = () => {
     const [fields, setFields] = useState({ username: '', password: '' })
     const history = useHistory()
     const dispatch = useDispatch()

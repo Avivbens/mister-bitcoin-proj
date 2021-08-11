@@ -1,17 +1,16 @@
 import { HashRouter as Router, Switch } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 
-
 import { HomePage } from "./views/HomePage.jsx"
 import { ContactsPage } from './views/ContactsPage.jsx'
 import { ContactDetails } from './views/ContactDetails.jsx'
 import { ChartsPage } from './views/ChartsPage.jsx'
 import { ContactEdit } from './views/ContactEdit.jsx'
 import { AppHeader } from './cmps/AppHeader.jsx'
-import { connect } from 'react-redux'
 import { SignupPage } from './views/SignupPage.jsx'
 
-export function _App({ loggedInUser }) {
+export const App = () => {
+
     return (
         <Router>
             <main className="app">
@@ -28,13 +27,4 @@ export function _App({ loggedInUser }) {
         </Router >
     )
 }
-
-const mapStateToProps = state => {
-    return {
-        loggedInUser: state.userModule.loggedInUser,
-    }
-}
-
-export const App = connect(mapStateToProps)(_App)
-
 

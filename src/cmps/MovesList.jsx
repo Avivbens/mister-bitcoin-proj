@@ -1,82 +1,67 @@
-import { Component } from 'react'
+import { useEffect, useState } from 'react'
 import Moment from 'react-moment'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { bitcoinService } from '../services/bitcoin.service'
 import { loadContacts } from '../store/actions/contactActions'
 
-export class _MovesList extends Component {
+export const MovesList = ({ user, fullView }) => {
 
-    state = {
-        rate: 1
-    }
+    const [rate, setRate] = useState(1)
+    const dispatch = useDispatch()
 
-    componentDidMount() {
-        this.calcDollars()
-    }
+    useEffect(() => {
+        calcDollars()
+    }, [])
 
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.user.moves !== this.props.user.moves) {
-            // ?
-            this.props.loadContacts()
-        }
-    }
+    useEffect(() => {
+        dispatch(loadContacts())
+    }, [user.moves])
 
-    calcDollars = async () => {
+
+    const calcDollars = async () => {
         const rate = await bitcoinService.getRate()
-        this.setState({ rate })
+        setRate(rate)
     }
 
-    render() {
-        const { user, fullView } = this.props
-        const { rate } = this.state
-        const moves = fullView ? user.moves.reverse() : user.moves.reverse().splice(0, 3)
-        let className = 'moves-list '
-        className += fullView ? 'full' : ''
+    let moves = user.moves?.sort((m1, m2) => m2.at - m1.at)
+    moves = fullView ? moves : moves.slice(0, 3)
 
-        if (!moves?.length) return (
-            <section className="moves-list">
-                <h3>No Moves Yet!</h3>
-            </section>
-        )
+    let className = 'moves-list '
+    className += fullView ? 'full' : ''
 
-        return (
-            <section className={className}>
-                <h4 className="title">Moves History:</h4>
-                {
-                    moves.map(move => (
-                        <label className="move-preview" key={move.at}>
-                            <p>
-                                <span className="currencies">
-                                    <span className="bitcoin">B {move.amount}</span> |
-                                    <span className="dollar">$ {(move.amount / rate).toFixed(2)}</span>
-                                </span>
-                                <br />
-                                {fullView && <>To: {move.to}</>}
-                            </p>
-                            <p>
-                                <Moment fromNow>
-                                    {move.at}
-                                </Moment>
-                            </p>
-                        </label>
-                    ))
-                }
+    if (!moves?.length) return (
+        <section className="moves-list">
+            <h3>No Moves Yet!</h3>
+        </section>
+    )
 
-                {/* <Moment format="YYYY/MM/DD">
+    return (
+        <section className={className}>
+            <h4 className="title">Moves History:</h4>
+            {
+                moves.map(move => (
+                    <label className="move-preview" key={move.at}>
+                        <p>
+                            <span className="currencies">
+                                <span className="bitcoin">B {move.amount}</span> |
+                                <span className="dollar">$ {(move.amount / rate).toFixed(2)}</span>
+                            </span>
+                            <br />
+                            {fullView && <>To: {move.to}</>}
+                        </p>
+                        <p>
+                            <Moment fromNow>
+                                {move.at}
+                            </Moment>
+                        </p>
+                    </label>
+                ))
+            }
+
+            {/* <Moment format="YYYY/MM/DD">
                     1976-04-19T12:59-0500
                 </Moment> */}
-            </section>
-        )
-    }
+        </section>
+    )
 }
 
-const mapStateToProps = state => {
-    return {
-        contact: state.contactModule.currContact,
-        loggedInUser: state.userModule.loggedInUser
-    }
-}
-const mapDispatchToProps = {
-    loadContacts
-}
-export const MovesList = connect(mapStateToProps, mapDispatchToProps)(_MovesList)

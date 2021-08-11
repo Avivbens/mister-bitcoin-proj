@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { logout } from '../store/actions/userActions'
 
-export function AppHeader() {
+export const AppHeader = () => {
 
     const { loggedinUser } = useSelector(state => state.userModule)
     const dispatch = useDispatch()

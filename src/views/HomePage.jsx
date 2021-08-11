@@ -3,22 +3,20 @@ import { useSelector } from 'react-redux'
 import { MovesList } from '../cmps/MovesList'
 import { bitcoinService } from '../services/bitcoin.service'
 
-export function HomePage() {
+export const HomePage = () => {
 
     const [currBitValue, setCurrBitValue] = useState(0)
     const [currBitRate, setCurrBitRate] = useState(1)
     const { loggedinUser } = useSelector(state => state.userModule)
 
-
     useEffect(() => {
-        async function a() {
+        (async () => {
             if (!loggedinUser) return setCurrBitValue(0)
             const bitValue = await bitcoinService.getValueCost(loggedinUser.coins)
             const bitRate = await bitcoinService.getRate()
             setCurrBitRate(bitRate)
             setCurrBitValue(bitValue.toFixed(3))
-        }
-        a()
+        })()
     }, [loggedinUser])
 
     const formatter = new Intl.NumberFormat('en-US', {
