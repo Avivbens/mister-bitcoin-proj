@@ -1,24 +1,25 @@
 {
   "files": {
-    "main.css": "/mister-bitcoin-proj/static/css/main.d146cce9.chunk.css",
-    "main.js": "/mister-bitcoin-proj/static/js/main.9c57c919.chunk.js",
-    "main.js.map": "/mister-bitcoin-proj/static/js/main.9c57c919.chunk.js.map",
-    "runtime-main.js": "/mister-bitcoin-proj/static/js/runtime-main.c43fe702.js",
-    "runtime-main.js.map": "/mister-bitcoin-proj/static/js/runtime-main.c43fe702.js.map",
-    "static/js/2.c802677d.chunk.js": "/mister-bitcoin-proj/static/js/2.c802677d.chunk.js",
-    "static/js/2.c802677d.chunk.js.map": "/mister-bitcoin-proj/static/js/2.c802677d.chunk.js.map",
-    "static/js/3.ef75768b.chunk.js": "/mister-bitcoin-proj/static/js/3.ef75768b.chunk.js",
-    "static/js/3.ef75768b.chunk.js.map": "/mister-bitcoin-proj/static/js/3.ef75768b.chunk.js.map",
+    "main.css": "/mister-bitcoin-proj/static/css/main.0dc60122.chunk.css",
+    "main.js": "/mister-bitcoin-proj/static/js/main.da85a013.chunk.js",
+    "main.js.map": "/mister-bitcoin-proj/static/js/main.da85a013.chunk.js.map",
+    "runtime-main.js": "/mister-bitcoin-proj/static/js/runtime-main.80f4093c.js",
+    "runtime-main.js.map": "/mister-bitcoin-proj/static/js/runtime-main.80f4093c.js.map",
+    "static/js/2.ff45d844.chunk.js": "/mister-bitcoin-proj/static/js/2.ff45d844.chunk.js",
+    "static/js/2.ff45d844.chunk.js.map": "/mister-bitcoin-proj/static/js/2.ff45d844.chunk.js.map",
+    "static/js/3.415f5196.chunk.js": "/mister-bitcoin-proj/static/js/3.415f5196.chunk.js",
+    "static/js/3.415f5196.chunk.js.map": "/mister-bitcoin-proj/static/js/3.415f5196.chunk.js.map",
     "index.html": "/mister-bitcoin-proj/index.html",
-    "static/css/main.d146cce9.chunk.css.map": "/mister-bitcoin-proj/static/css/main.d146cce9.chunk.css.map",
-    "static/js/2.c802677d.chunk.js.LICENSE.txt": "/mister-bitcoin-proj/static/js/2.c802677d.chunk.js.LICENSE.txt",
+    "static/css/main.0dc60122.chunk.css.map": "/mister-bitcoin-proj/static/css/main.0dc60122.chunk.css.map",
+    "static/js/2.ff45d844.chunk.js.LICENSE.txt": "/mister-bitcoin-proj/static/js/2.ff45d844.chunk.js.LICENSE.txt",
     "static/media/main.scss": "/mister-bitcoin-proj/static/media/bgc.9133648d.jpg",
+    "static/media/contact.png": "/mister-bitcoin-proj/static/media/contact.42200432.png",
     "static/media/user-icon.png": "/mister-bitcoin-proj/static/media/user-icon.16815c49.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.c43fe702.js",
-    "static/js/2.c802677d.chunk.js",
-    "static/css/main.d146cce9.chunk.css",
-    "static/js/main.9c57c919.chunk.js"
+    "static/js/runtime-main.80f4093c.js",
+    "static/js/2.ff45d844.chunk.js",
+    "static/css/main.0dc60122.chunk.css",
+    "static/js/main.da85a013.chunk.js"
   ]
 }
